@@ -6,6 +6,7 @@ from .models import Product
 from .models import Category 
 from .serializers import ProductSerializer
 from .serializers import CategorySerializer
+from .pagination import ProductPagination
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +14,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.order_by("-id")
     serializer_class = ProductSerializer
     permission_classes = [permissions.AllowAny]
+    pagination_class = ProductPagination
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -24,7 +26,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
-    
+
 class CategoryViewSet(viewsets.ModelViewSet):   
     queryset = Category.objects.order_by("-id")
     serializer_class = CategorySerializer

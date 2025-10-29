@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from core.api import ProductViewSet
+from core.api import CategoryViewSet
 
 router = DefaultRouter(trailing_slash=False)
 router.register('products', ProductViewSet, basename='product')
+router.register('categories', CategoryViewSet, basename='category')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
